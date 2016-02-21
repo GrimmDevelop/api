@@ -19,3 +19,13 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\Person::class, function (Faker\Generator $faker) {
+    return [
+        'last_name' => $faker->lastName,
+        'first_name' => $faker->firstName,
+        'birth_date' => $faker->date('Y-m-d'),
+        'death_date' => $faker->date('Y-m-d'),
+        'is_organization' => $faker->boolean(20),
+    ];
+});

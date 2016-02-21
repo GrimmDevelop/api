@@ -26,12 +26,19 @@ Route::get('/', function () {
 |
 */
 
-Route::group(['prefix' => 'api/v1', 'middleware' => ['api']], function () {
+// Api
 
-    Route::resource('persons', 'ApiV1\\Open\\PersonsController');
+Route::group(['prefix' => 'v1', 'middleware' => ['api']], function () {
 
-    Route::resource('books', 'ApiV1\\Open\\BooksController');
-    Route::post('books/{id}/persons', 'ApiV1\\Open\\BooksController@addPersonToBook');
+    Route::post('access_token', 'ApiV1\\AuthController@login');
+
+    Route::get('persons', ['as' => 'v1.persons.index', 'uses' => 'ApiV1\\Open\\PersonsController@index']);
+    Route::get('persons/{id}', ['as' => 'v1.persons.show', 'uses' => 'ApiV1\\Open\\PersonsController@show']);
+
+    Route::get('books', ['as' => 'v1.books.index', 'uses' => 'ApiV1\\Open\\BooksController@index']);
+    Route::get('books/{id}', ['as' => 'v1.books.show', 'uses' => 'ApiV1\\Open\\BooksController@show']);
+
+    // protected: Route::post('books/{id}/persons', 'ApiV1\\Open\\BooksController@addPersonToBook');
 
 
 });

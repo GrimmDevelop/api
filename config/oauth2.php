@@ -30,7 +30,7 @@ return [
     'grant_types' => [
         'password' => [
             'class' => '\League\OAuth2\Server\Grant\PasswordGrant',
-            'callback' => '\Tomkow\Http\Controllers\Admin\Api\AuthController@verify',
+            'callback' => '\App\Http\Controllers\ApiV1\AuthController@verify',
             'access_token_ttl' => 3600
         ]
     ],

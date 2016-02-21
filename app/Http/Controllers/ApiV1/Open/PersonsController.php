@@ -4,6 +4,8 @@ namespace App\Http\Controllers\ApiV1\Open;
 
 use App\Http\Controllers\ApiV1\ApiController;
 use App\Http\Requests;
+use App\Person;
+use App\Transformers\V1\Models\PersonTransformer;
 use Illuminate\Http\Request;
 
 class PersonsController extends ApiController {
@@ -11,11 +13,16 @@ class PersonsController extends ApiController {
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $limit = $this->limit($request->get('limit'), 100, 10);
+
+        $people = Person::query()->paginate($limit);
+
+        return $this->respondWithPagination($people, new PersonTransformer);
     }
 
     /**
@@ -26,6 +33,13 @@ class PersonsController extends ApiController {
      */
     public function show($id)
     {
-        //
+        /** @var Person $person */
+        $person = Person::query()->find($id);
+
+        if (!$person) {
+            return $this->responseNotFound();
+        }
+
+        return $this->responseItem($person, new PersonTransformer);
     }
 }
