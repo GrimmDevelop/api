@@ -6,9 +6,23 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Response as IlluminateResponse;
 use InvalidArgumentException;
 use App\Http\Controllers\Controller;
-use App\Transformers\TransformerInterface;
+use League\Fractal\Manager;
+use League\Fractal\Pagination\IlluminatePaginatorAdapter;
+use League\Fractal\Resource\Collection;
+use League\Fractal\Resource\Item;
+use League\Fractal\TransformerAbstract;
 
 abstract class ApiController extends Controller {
+
+    /**
+     * @var Manager
+     */
+    private $manager;
+
+    public function __construct(Manager $manager)
+    {
+        $this->manager = $manager;
+    }
 
     /**
      * @var int
@@ -47,60 +61,53 @@ abstract class ApiController extends Controller {
 
     /**
      * @param $data
-     * @param array $meta
+     *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function response($data, array $meta = [])
+    public function response($data)
     {
-        return response()->json(array_merge($meta, [
-            'data' => $data,
-        ]), $this->getStatusCode());
+        return response()->json($data, $this->getStatusCode());
     }
 
     /**
      * @param $item
-     * @param TransformerInterface $transformer
-     * @param array $meta
+     * @param TransformerAbstract $transformer
+     *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function responseItem($item, TransformerInterface $transformer, array $meta = [])
+    public function responseItem($item, TransformerAbstract $transformer)
     {
         return $this->setStatusCode(IlluminateResponse::HTTP_OK)
-            ->response($transformer->transform($item), $meta);
+            ->response($this->manager->createData(new Item($item, $transformer))->toArray());
     }
 
     /**
      * @param array $items
-     * @param TransformerInterface $transformer
-     * @param array $meta
+     * @param TransformerAbstract $transformer
+     *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function responseCollection(array $items, TransformerInterface $transformer, array $meta = [])
+    public function responseCollection(array $items, TransformerAbstract $transformer)
     {
+        $resource = new Collection($items, $transformer);
+
         return $this->setStatusCode(IlluminateResponse::HTTP_OK)
-            ->response($transformer->transformCollection($items), $meta);
+            ->response($this->manager->createData($resource)->toArray());
     }
 
     /**
-     * @param LengthAwarePaginator $items
-     * @param TransformerInterface $transformer
-     * @param array $meta
+     * @param LengthAwarePaginator $paginator
+     * @param TransformerAbstract $transformer
+     *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function respondWithPagination(LengthAwarePaginator $items, TransformerInterface $transformer, array $meta = [])
+    public function respondWithPagination(LengthAwarePaginator $paginator, TransformerAbstract $transformer)
     {
-        return $this->responseCollection($items->items(), $transformer, array_merge($meta, [
-            'paginator' => [
-                'total_count' => $items->total(),
-                'total_pages' => $items->lastPage(),
-                'current_page' => $items->currentPage(),
-                'links' => [
-                    'self' => $items->url($items->currentPage()),
-                    'prev' => $items->previousPageUrl(),
-                    'next' => $items->nextPageUrl(),
-                ],
-            ]
-        ]));
+        $resource = new Collection($paginator->items(), $transformer);
+        $resource->setPaginator(new IlluminatePaginatorAdapter($paginator));
+
+        return $this->setStatusCode(IlluminateResponse::HTTP_OK)
+            ->response($this->manager->createData($resource)->toArray());
     }
 
     /**
@@ -133,9 +140,9 @@ abstract class ApiController extends Controller {
             $message = $this->tryCreateErrorMessage();
         }
 
-        return response()->json([
+        return $this->response([
             'error' => $message
-        ], $this->getStatusCode());
+        ]);
     }
 
     /**

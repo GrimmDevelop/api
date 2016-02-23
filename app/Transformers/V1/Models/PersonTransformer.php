@@ -2,9 +2,9 @@
 
 namespace App\Transformers\V1\Models;
 
-use App\Transformers\AbstractTransformer;
+use League\Fractal\TransformerAbstract;
 
-class PersonTransformer extends AbstractTransformer {
+class PersonTransformer extends TransformerAbstract {
 
     /**
      * Transforms a single item into a new one

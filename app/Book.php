@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property integer volume_irregular
  * @property string edition
  * @property integer year
+ * @property BookPersonAssociation[] personAssociations
  */
 class Book extends Model {
 

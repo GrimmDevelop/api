@@ -2,9 +2,19 @@
 
 namespace App\Transformers\V1\Models;
 
-use App\Transformers\AbstractTransformer;
+use App\Book;
+use League\Fractal\TransformerAbstract;
 
-class BookTransformer extends AbstractTransformer {
+class BookTransformer extends TransformerAbstract {
+
+    /**
+     * List of resources possible to include
+     *
+     * @var array
+     */
+    protected $availableIncludes = [
+        'personAssociation',
+    ];
 
     /**
      * Transforms a single item into a new one
@@ -26,5 +36,18 @@ class BookTransformer extends AbstractTransformer {
             'edition' => $item->edition,
             'year' => (int) $item->year,
         ];
+    }
+
+    /**
+     * Include person association
+     *
+     * @param Book $book
+     * @return \League\Fractal\ItemResource
+     */
+    public function includePersonAssociation(Book $book)
+    {
+        $associations = $book->personAssociations;
+
+        return $this->item($associations, new BookPersonAssociationTransformer);
     }
 }
