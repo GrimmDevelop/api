@@ -39,6 +39,4 @@ Route::group(['prefix' => 'v1', 'middleware' => ['api']], function () {
     Route::get('books/{id}', ['as' => 'v1.books.show', 'uses' => 'ApiV1\\Open\\BooksController@show']);
 
     // protected: Route::post('books/{id}/persons', 'ApiV1\\Open\\BooksController@addPersonToBook');
-
-
 });
