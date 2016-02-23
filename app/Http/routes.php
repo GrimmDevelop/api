@@ -30,13 +30,15 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'v1', 'middleware' => ['api']], function () {
 
-    Route::post('access_token', 'ApiV1\\AuthController@login');
+    Route::post('find', ['as' => 'v1.find', 'uses' => 'ApiV1\\Open\\FindController@index']);
 
-    Route::get('persons', ['as' => 'v1.persons.index', 'uses' => 'ApiV1\\Open\\PersonsController@index']);
-    Route::get('persons/{id}', ['as' => 'v1.persons.show', 'uses' => 'ApiV1\\Open\\PersonsController@show']);
+    Route::group(['middleware' => ['auth:api']], function() {
+        Route::get('persons', ['as' => 'v1.persons.index', 'uses' => 'ApiV1\\Open\\PersonsController@index']);
+        Route::get('persons/{id}', ['as' => 'v1.persons.show', 'uses' => 'ApiV1\\Open\\PersonsController@show']);
 
-    Route::get('books', ['as' => 'v1.books.index', 'uses' => 'ApiV1\\Open\\BooksController@index']);
-    Route::get('books/{id}', ['as' => 'v1.books.show', 'uses' => 'ApiV1\\Open\\BooksController@show']);
+        Route::get('books', ['as' => 'v1.books.index', 'uses' => 'ApiV1\\Open\\BooksController@index']);
+        Route::get('books/{id}', ['as' => 'v1.books.show', 'uses' => 'ApiV1\\Open\\BooksController@show']);
 
-    // protected: Route::post('books/{id}/persons', 'ApiV1\\Open\\BooksController@addPersonToBook');
+        // protected: Route::post('books/{id}/persons', 'ApiV1\\Open\\BooksController@addPersonToBook');
+    });
 });
