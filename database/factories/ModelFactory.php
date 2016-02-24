@@ -11,7 +11,7 @@
 |
 */
 
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+$factory->define(Grimm\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->email,
@@ -22,7 +22,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Person::class, function (Faker\Generator $faker) {
+$factory->define(Grimm\Person::class, function (Faker\Generator $faker) {
 
     $birthDate = \Carbon\Carbon::now()->subYears($faker->randomNumber(3));
 
@@ -35,7 +35,7 @@ $factory->define(App\Person::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Book::class, function (Faker\Generator $faker) {
+$factory->define(Grimm\Book::class, function (Faker\Generator $faker) {
 
     if ($faker->boolean(80)) {
         $v = rand(1, 7);
@@ -57,7 +57,7 @@ $factory->define(App\Book::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\PersonCode::class, function (Faker\Generator $faker) {
+$factory->define(Grimm\PersonCode::class, function (Faker\Generator $faker) {
 
     return [
         'error_generated' => $faker->boolean(20),
@@ -66,11 +66,11 @@ $factory->define(App\PersonCode::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\PersonInformation::class, function (Faker\Generator $faker) {
+$factory->define(Grimm\PersonInformation::class, function (Faker\Generator $faker) {
 
-    $code = App\PersonCode::orderByRaw('RAND()')->first();
+    $code = Grimm\PersonCode::orderByRaw('RAND()')->first();
 
-    $person = App\Person::orderByRaw('RAND()')->first();
+    $person = Grimm\Person::orderByRaw('RAND()')->first();
 
     if (!$code || !$person) {
         throw new \Exception('no book or person found for association');
@@ -83,9 +83,9 @@ $factory->define(App\PersonInformation::class, function (Faker\Generator $faker)
     ];
 });
 
-$factory->define(App\PersonPrint::class, function (Faker\Generator $faker) {
+$factory->define(Grimm\PersonPrint::class, function (Faker\Generator $faker) {
 
-    $person = App\Person::orderByRaw('RAND()')->first();
+    $person = Grimm\Person::orderByRaw('RAND()')->first();
 
     if (!$person) {
         throw new \Exception('no book or person found for association');
@@ -98,9 +98,9 @@ $factory->define(App\PersonPrint::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\PersonInheritance::class, function (Faker\Generator $faker) {
+$factory->define(Grimm\PersonInheritance::class, function (Faker\Generator $faker) {
 
-    $person = App\Person::orderByRaw('RAND()')->first();
+    $person = Grimm\Person::orderByRaw('RAND()')->first();
 
     if (!$person) {
         throw new \Exception('no book or person found for association');
@@ -112,11 +112,11 @@ $factory->define(App\PersonInheritance::class, function (Faker\Generator $faker)
     ];
 });
 
-$factory->define(App\BookPersonAssociation::class, function (Faker\Generator $faker) {
+$factory->define(Grimm\BookPersonAssociation::class, function (Faker\Generator $faker) {
 
-    $book = App\Book::orderByRaw('RAND()')->first();
+    $book = Grimm\Book::orderByRaw('RAND()')->first();
 
-    $person = App\Person::orderByRaw('RAND()')->first();
+    $person = Grimm\Person::orderByRaw('RAND()')->first();
 
     if (!$book || !$person) {
         throw new \Exception('no book or person found for association');
