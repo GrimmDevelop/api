@@ -70,44 +70,63 @@ abstract class ApiController extends Controller {
     }
 
     /**
-     * @param $item
-     * @param TransformerAbstract $transformer
+     * @param Item $item
+     * @param array $includes
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function responseItem($item, TransformerAbstract $transformer)
+    public function responseItem(Item $item, array $includes = [])
     {
+        $this->manager->parseIncludes($includes);
+
+        return $this->setStatusCode(IlluminateResponse::HTTP_OK)
+            ->response($this->manager->createData($item)->toArray());
+    }
+
+    /**
+     * @param $item
+     * @param TransformerAbstract $transformer
+     * @param array $includes
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function responseWithTransformer($item, TransformerAbstract $transformer, array $includes = [])
+    {
+        $this->manager->parseIncludes($includes);
+
         return $this->setStatusCode(IlluminateResponse::HTTP_OK)
             ->response($this->manager->createData(new Item($item, $transformer))->toArray());
     }
 
     /**
-     * @param array $items
-     * @param TransformerAbstract $transformer
+     * @param Collection $items
+     * @param array $includes
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function responseCollection(array $items, TransformerAbstract $transformer)
+    public function responseCollection(Collection $items, array $includes = [])
     {
-        $resource = new Collection($items, $transformer);
+        $this->manager->parseIncludes($includes);
 
         return $this->setStatusCode(IlluminateResponse::HTTP_OK)
-            ->response($this->manager->createData($resource)->toArray());
+            ->response($this->manager->createData($items)->toArray());
     }
 
     /**
      * @param LengthAwarePaginator $paginator
      * @param TransformerAbstract $transformer
+     * @param array $includes
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function respondWithPagination(LengthAwarePaginator $paginator, TransformerAbstract $transformer)
+    public function respondWithPagination(LengthAwarePaginator $paginator, TransformerAbstract $transformer, array $includes = [])
     {
+        $this->manager->parseIncludes($includes);
+
         $resource = new Collection($paginator->items(), $transformer);
         $resource->setPaginator(new IlluminatePaginatorAdapter($paginator));
 
-        return $this->setStatusCode(IlluminateResponse::HTTP_OK)
-            ->response($this->manager->createData($resource)->toArray());
+        return $this->responseCollection($resource);
     }
 
     /**

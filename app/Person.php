@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property boolean is_organization
  * @property boolean auto_generated
  * @property string source
+ * @property BookPersonAssociation[] bookAssociations
  */
 class Person extends Model {
 
@@ -34,6 +35,30 @@ class Person extends Model {
     protected $dates = [
         'created_at', 'updated_at', 'deleted_at', 'birth_date', 'death_date'
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function information()
+    {
+        return $this->hasMany(PersonInformation::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function prints()
+    {
+        return $this->hasMany(PersonPrint::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function inheritances()
+    {
+        return $this->hasMany(PersonInheritance::class);
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

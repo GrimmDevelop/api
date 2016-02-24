@@ -2,9 +2,19 @@
 
 namespace App\Transformers\V1\Models;
 
+use App\Person;
 use League\Fractal\TransformerAbstract;
 
 class PersonTransformer extends TransformerAbstract {
+
+    /**
+     * List of resources possible to include
+     *
+     * @var array
+     */
+    protected $availableIncludes = [
+        'bookAssociations',
+    ];
 
     /**
      * Transforms a single item into a new one
@@ -12,7 +22,7 @@ class PersonTransformer extends TransformerAbstract {
      * @param \App\Person $item
      * @return mixed
      */
-    public function transform($item)
+    public function transform(Person $item)
     {
         return [
             'links' => [
@@ -30,5 +40,16 @@ class PersonTransformer extends TransformerAbstract {
             'auto_generated' => (bool) $item->auto_generated,
             'source' => $item->source,
         ];
+    }
+
+    /**
+     * Include person association
+     *
+     * @param \App\Person $person
+     * @return \League\Fractal\Resource\Collection
+     */
+    public function includeBookAssociations(Person $person)
+    {
+        return $this->collection($person->bookAssociations, new BookPersonAssociationTransformer);
     }
 }

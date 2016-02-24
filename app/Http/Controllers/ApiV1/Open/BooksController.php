@@ -35,12 +35,12 @@ class BooksController extends ApiController {
     public function show($id)
     {
         /** @var Book $book */
-        $book = Book::query()->with('personAssociations')->find($id);
+        $book = Book::query()->with('personAssociations.person')->find($id);
 
         if (!$book) {
             return $this->responseNotFound();
         }
 
-        return $this->responseItem($book, (new BookTransformer)->includePersonAssociation($book));
+        return $this->responseWithTransformer($book, new BookTransformer, ['personAssociations.person']);
     }
 }

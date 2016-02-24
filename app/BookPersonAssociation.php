@@ -5,16 +5,20 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * @property Book book
+ * @property Person person
+ * @property integer book_id
+ * @property integer person_id
  * @property integer page
  * @property integer page_to
- * @property string description
+ * @property string page_description
  * @property integer line
  */
 class BookPersonAssociation extends Model {
 
     protected $table = 'book_person';
 
-    protected $fillable = ['page', 'page_to', 'description', 'line'];
+    protected $fillable = ['page', 'page_to', 'page_description', 'line'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

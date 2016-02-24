@@ -17,8 +17,8 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'email' => $faker->email,
         'password' => bcrypt(str_random(10)),
         'remember_token' => str_random(10),
-        'api_token' =>  str_random(60),
-        'api_only'  =>  true
+        'api_token' => str_random(60),
+        'api_only' => true
     ];
 });
 
@@ -37,7 +37,7 @@ $factory->define(App\Person::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Book::class, function (Faker\Generator $faker) {
 
-    if($faker->boolean(80)) {
+    if ($faker->boolean(80)) {
         $v = rand(1, 7);
         $v_i = null;
     } else {
@@ -54,5 +54,28 @@ $factory->define(App\Book::class, function (Faker\Generator $faker) {
         'volume_irregular' => $v_i,
         'edition' => $faker->boolean(20),
         'year' => rand(1500, 2000),
+    ];
+});
+
+$factory->define(App\BookPersonAssociation::class, function (Faker\Generator $faker) {
+
+    $book = App\Book::orderByRaw('RAND()')->first();
+
+    $person = App\Person::orderByRaw('RAND()')->first();
+
+    if (!$book || !$person) {
+        throw new \Exception('no book or person found for association');
+    }
+
+    $page = rand(1, 999);
+    $page_to = rand($page, $page + 25);
+
+    return [
+        'book_id' => $book->id,
+        'person_id' => $person->id,
+        'page' => $page,
+        'page_to' => $page_to,
+        'page_description' => $faker->paragraph,
+        'line' => rand(1, 50),
     ];
 });

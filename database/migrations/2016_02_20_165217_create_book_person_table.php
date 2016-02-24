@@ -21,7 +21,7 @@ class CreateBookPersonTable extends Migration {
 
 			$table->integer('page')->default(null);
 			$table->integer('page_to')->default(null);
-			$table->integer('page_description')->default(null);
+			$table->string('page_description')->default(null);
 			$table->integer('line')->default(null);
 
 			$table->timestamps();

@@ -13,7 +13,7 @@ class BookTransformer extends TransformerAbstract {
      * @var array
      */
     protected $availableIncludes = [
-        'personAssociation',
+        'personAssociations',
     ];
 
     /**
@@ -42,12 +42,10 @@ class BookTransformer extends TransformerAbstract {
      * Include person association
      *
      * @param Book $book
-     * @return \League\Fractal\ItemResource
+     * @return \League\Fractal\Resource\Collection
      */
-    public function includePersonAssociation(Book $book)
+    public function includePersonAssociations(Book $book)
     {
-        $associations = $book->personAssociations;
-
-        return $this->item($associations, new BookPersonAssociationTransformer);
+        return $this->collection($book->personAssociations, new BookPersonAssociationTransformer);
     }
 }
