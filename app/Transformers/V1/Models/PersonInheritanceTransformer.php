@@ -2,7 +2,7 @@
 
 namespace App\Transformers\V1\Models;
 
-use App\PersonInheritance;
+use Grimm\PersonInheritance;
 use League\Fractal\TransformerAbstract;
 
 class PersonInheritanceTransformer extends TransformerAbstract

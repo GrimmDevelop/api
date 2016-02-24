@@ -2,7 +2,7 @@
 
 namespace App\Transformers\V1\Models;
 
-use App\BookPersonAssociation;
+use Grimm\BookPersonAssociation;
 use League\Fractal\TransformerAbstract;
 
 class BookPersonAssociationTransformer extends TransformerAbstract

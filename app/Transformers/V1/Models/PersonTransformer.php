@@ -2,7 +2,7 @@
 
 namespace App\Transformers\V1\Models;
 
-use App\Person;
+use Grimm\Person;
 use League\Fractal\TransformerAbstract;
 
 class PersonTransformer extends TransformerAbstract {
@@ -19,7 +19,7 @@ class PersonTransformer extends TransformerAbstract {
     /**
      * Transforms a single item into a new one
      *
-     * @param \App\Person $item
+     * @param \Grimm\Person $item
      * @return mixed
      */
     public function transform(Person $item)
@@ -45,7 +45,7 @@ class PersonTransformer extends TransformerAbstract {
     /**
      * Include person association
      *
-     * @param \App\Person $person
+     * @param \Grimm\Person $person
      * @return \League\Fractal\Resource\Collection
      */
     public function includeInformation(Person $person)
@@ -56,7 +56,7 @@ class PersonTransformer extends TransformerAbstract {
     /**
      * Include person association
      *
-     * @param \App\Person $person
+     * @param \Grimm\Person $person
      * @return \League\Fractal\Resource\Collection
      */
     public function includePrints(Person $person)
@@ -67,7 +67,7 @@ class PersonTransformer extends TransformerAbstract {
     /**
      * Include person association
      *
-     * @param \App\Person $person
+     * @param \Grimm\Person $person
      * @return \League\Fractal\Resource\Collection
      */
     public function includeInheritances(Person $person)
@@ -78,7 +78,7 @@ class PersonTransformer extends TransformerAbstract {
     /**
      * Include person association
      *
-     * @param \App\Person $person
+     * @param \Grimm\Person $person
      * @return \League\Fractal\Resource\Collection
      */
     public function includeBookAssociations(Person $person)

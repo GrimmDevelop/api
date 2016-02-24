@@ -2,7 +2,7 @@
 
 namespace App\Transformers\V1\Models;
 
-use App\PersonPrint;
+use Grimm\PersonPrint;
 use League\Fractal\TransformerAbstract;
 
 class PersonPrintTransformer extends TransformerAbstract {

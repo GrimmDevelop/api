@@ -2,7 +2,7 @@
 
 namespace App\Transformers\V1\Models;
 
-use App\Book;
+use Grimm\Book;
 use League\Fractal\TransformerAbstract;
 
 class BookTransformer extends TransformerAbstract {
@@ -19,7 +19,7 @@ class BookTransformer extends TransformerAbstract {
     /**
      * Transforms a single item into a new one
      *
-     * @param \App\Book $item
+     * @param \Grimm\Book $item
      * @return mixed
      */
     public function transform($item)
@@ -41,7 +41,7 @@ class BookTransformer extends TransformerAbstract {
     /**
      * Include person association
      *
-     * @param Book $book
+     * @param \Grimm\Book $book
      * @return \League\Fractal\Resource\Collection
      */
     public function includePersonAssociations(Book $book)

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\ApiV1\Open;
 
 use App\Http\Controllers\ApiV1\ApiController;
 use App\Http\Requests;
-use App\Person;
+use Grimm\Person;
 use App\Transformers\V1\Models\PersonTransformer;
 use Illuminate\Http\Request;
 

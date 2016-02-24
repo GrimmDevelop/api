@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\ApiV1\Open;
 
-use App\Book;
-use App\BookPersonAssociation;
+use Grimm\Book;
 use App\Http\Controllers\ApiV1\ApiController;
 use App\Http\Requests;
 use Illuminate\Http\Request;
