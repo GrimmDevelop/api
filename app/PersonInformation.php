@@ -4,6 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property PersonCode code
+ * @property string data
+ */
 class PersonInformation extends Model {
 
     use BelongsToPerson;
@@ -15,6 +19,6 @@ class PersonInformation extends Model {
      */
     public function code()
     {
-        return $this->belongsTo(PersonCode::class);
+        return $this->belongsTo(PersonCode::class, 'person_code_id');
     }
 }

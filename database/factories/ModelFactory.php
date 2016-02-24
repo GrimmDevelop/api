@@ -57,6 +57,61 @@ $factory->define(App\Book::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(App\PersonCode::class, function (Faker\Generator $faker) {
+
+    return [
+        'error_generated' => $faker->boolean(20),
+        'internal' => $faker->boolean(20),
+        'name' => str_slug($faker->sentence(3)),
+    ];
+});
+
+$factory->define(App\PersonInformation::class, function (Faker\Generator $faker) {
+
+    $code = App\PersonCode::orderByRaw('RAND()')->first();
+
+    $person = App\Person::orderByRaw('RAND()')->first();
+
+    if (!$code || !$person) {
+        throw new \Exception('no book or person found for association');
+    }
+
+    return [
+        'person_code_id' => $code->id,
+        'person_id' => $person->id,
+        'data' => $faker->paragraph,
+    ];
+});
+
+$factory->define(App\PersonPrint::class, function (Faker\Generator $faker) {
+
+    $person = App\Person::orderByRaw('RAND()')->first();
+
+    if (!$person) {
+        throw new \Exception('no book or person found for association');
+    }
+
+    return [
+        'person_id' => $person->id,
+        'entry' => $faker->paragraph,
+        'year'  => rand(12000, 20000)/10
+    ];
+});
+
+$factory->define(App\PersonInheritance::class, function (Faker\Generator $faker) {
+
+    $person = App\Person::orderByRaw('RAND()')->first();
+
+    if (!$person) {
+        throw new \Exception('no book or person found for association');
+    }
+
+    return [
+        'person_id' => $person->id,
+        'entry' => $faker->paragraph,
+    ];
+});
+
 $factory->define(App\BookPersonAssociation::class, function (Faker\Generator $faker) {
 
     $book = App\Book::orderByRaw('RAND()')->first();

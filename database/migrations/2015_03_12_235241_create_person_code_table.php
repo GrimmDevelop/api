@@ -15,7 +15,7 @@ class CreatePersonCodeTable extends Migration {
 		Schema::create('person_codes', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name');
+			$table->string('name')->unique();
 			$table->boolean('error_generated')->default(false);
 			$table->boolean('internal')->default(false);
 

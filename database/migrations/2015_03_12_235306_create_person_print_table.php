@@ -18,6 +18,8 @@ class CreatePersonPrintTable extends Migration {
 
 			$table->string('entry');
 
+			$table->decimal('year', 5, 1)->nullable()->default(null);
+
 			$table->integer('person_id')->unsigned();
 
 			$table->timestamps();

@@ -9,7 +9,8 @@ use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Transformers\V1\Models\BookTransformer;
 
-class BooksController extends ApiController {
+class BooksController extends ApiController
+{
 
     /**
      * Display a listing of the resource.
@@ -41,6 +42,10 @@ class BooksController extends ApiController {
             return $this->responseNotFound();
         }
 
-        return $this->responseWithTransformer($book, new BookTransformer, ['personAssociations.person']);
+        return $this->responseWithTransformer(
+            $book,
+            new BookTransformer,
+            ['personAssociations.person']
+        );
     }
 }

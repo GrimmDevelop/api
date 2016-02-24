@@ -28,13 +28,13 @@ class BookTransformer extends TransformerAbstract {
             'links' => [
                 'self' => route('v1.books.show', ['id' => $item->id]),
             ],
-            'id' => (int) $item->id,
+            'id' => (int)$item->id,
             'title' => $item->title,
             'short_title' => $item->short_title,
-            'volume' => (int) $item->volume,
-            'volume_irregular' => (int) $item->volume_irregular,
+            'volume' => (int)$item->volume,
+            'volume_irregular' => (int)$item->volume_irregular,
             'edition' => $item->edition,
-            'year' => (int) $item->year,
+            'year' => (int)$item->year,
         ];
     }
 

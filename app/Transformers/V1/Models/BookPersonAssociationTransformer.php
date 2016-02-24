@@ -5,7 +5,8 @@ namespace App\Transformers\V1\Models;
 use App\BookPersonAssociation;
 use League\Fractal\TransformerAbstract;
 
-class BookPersonAssociationTransformer extends TransformerAbstract {
+class BookPersonAssociationTransformer extends TransformerAbstract
+{
 
     /**
      * List of resources possible to include
@@ -26,12 +27,12 @@ class BookPersonAssociationTransformer extends TransformerAbstract {
     public function transform(BookPersonAssociation $item)
     {
         return [
-            'book_id' => (int) $item->book_id,
-            'person_id' => (int) $item->person_id,
-            'page' => (int) $item->page,
-            'page_to' => (int) $item->page_to,
+            'book_id' => (int)$item->book_id,
+            'person_id' => (int)$item->person_id,
+            'page' => (int)$item->page,
+            'page_to' => (int)$item->page_to,
             'page_description' => $item->page_description,
-            'line' => (int) $item->line,
+            'line' => (int)$item->line,
         ];
     }
 
