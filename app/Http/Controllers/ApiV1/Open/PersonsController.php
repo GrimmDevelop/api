@@ -35,7 +35,7 @@ class PersonsController extends ApiController
     public function show($id)
     {
         /** @var Person $person */
-        $person = App\Person::query()->with([
+        $person = Person::query()->with([
             'information' => function($query) {
                 $query->whereHas('code', function($q) {
                     $q->where('internal', false);
