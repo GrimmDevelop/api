@@ -19,7 +19,7 @@ class BooksController extends ApiController
      */
     public function index(Request $request)
     {
-        $limit = $this->limit($request->get('limit'), 100);
+        $limit = $this->limit($request->get('limit'), 100, 10);
 
         $books = Book::query()->paginate($limit);
 
