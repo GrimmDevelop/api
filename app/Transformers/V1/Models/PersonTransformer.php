@@ -13,7 +13,7 @@ class PersonTransformer extends TransformerAbstract {
      * @var array
      */
     protected $availableIncludes = [
-        'bookAssociations',
+        'information', 'prints', 'inheritances', 'bookAssociations',
     ];
 
     /**
@@ -40,6 +40,39 @@ class PersonTransformer extends TransformerAbstract {
             'auto_generated' => (bool) $item->auto_generated,
             'source' => $item->source,
         ];
+    }
+
+    /**
+     * Include person association
+     *
+     * @param \App\Person $person
+     * @return \League\Fractal\Resource\Collection
+     */
+    public function includeInformation(Person $person)
+    {
+        return $this->collection($person->information, new PersonInformationTransformer);
+    }
+
+    /**
+     * Include person association
+     *
+     * @param \App\Person $person
+     * @return \League\Fractal\Resource\Collection
+     */
+    public function includePrints(Person $person)
+    {
+        return $this->collection($person->prints, new PersonPrintTransformer);
+    }
+
+    /**
+     * Include person association
+     *
+     * @param \App\Person $person
+     * @return \League\Fractal\Resource\Collection
+     */
+    public function includeInheritances(Person $person)
+    {
+        return $this->collection($person->inheritances, new PersonInheritanceTransformer);
     }
 
     /**

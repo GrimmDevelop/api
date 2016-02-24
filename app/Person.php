@@ -17,6 +17,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property boolean is_organization
  * @property boolean auto_generated
  * @property string source
+ *
+ * @property PersonInformation[] information
+ * @property PersonPrint[] prints
+ * @property PersonInheritance[] inheritances
  * @property BookPersonAssociation[] bookAssociations
  */
 class Person extends Model {

@@ -34,12 +34,12 @@ class PersonsController extends ApiController {
     public function show($id)
     {
         /** @var Person $person */
-        $person = Person::query()->with('information.code', 'prints', 'inheritances', 'bookAssociations')->find($id);
+        $person = Person::query()->with('information', 'prints', 'inheritances', 'bookAssociations')->find($id);
 
         if (!$person) {
             return $this->responseNotFound();
         }
 
-        return $this->responseWithTransformer($person, new PersonTransformer, ['bookAssociations']);
+        return $this->responseWithTransformer($person, new PersonTransformer, ['information', 'prints', 'inheritances', 'bookAssociations']);
     }
 }
