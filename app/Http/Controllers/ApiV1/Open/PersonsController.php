@@ -8,7 +8,8 @@ use App\Person;
 use App\Transformers\V1\Models\PersonTransformer;
 use Illuminate\Http\Request;
 
-class PersonsController extends ApiController {
+class PersonsController extends ApiController
+{
 
     /**
      * Display a listing of the resource.
@@ -40,6 +41,10 @@ class PersonsController extends ApiController {
             return $this->responseNotFound();
         }
 
-        return $this->responseWithTransformer($person, new PersonTransformer, ['information', 'prints', 'inheritances', 'bookAssociations']);
+        return $this->responseWithTransformer(
+            $person,
+            new PersonTransformer,
+            ['information', 'prints', 'inheritances', 'bookAssociations']
+        );
     }
 }
