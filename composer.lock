@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0749c1ecf830d48004081370253bad6a",
-    "content-hash": "90c1b2e3f06e53cc7ae57eb8e07f9c9f",
+    "hash": "32c55cc46c063b9416bf79c4511dfcba",
+    "content-hash": "853a1ac9832ed76aedc5482b2ebaaaba",
     "packages": [
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -264,6 +264,48 @@
                 }
             ],
             "time": "2016-03-31 15:36:21"
+        },
+        {
+            "name": "hisamu/php-xbase",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hisamu/php-xbase.git",
+                "reference": "e989cc98a9f91047bb5a09d0980a4a3f845280af"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hisamu/php-xbase/zipball/e989cc98a9f91047bb5a09d0980a4a3f845280af",
+                "reference": "e989cc98a9f91047bb5a09d0980a4a3f845280af",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "XBase": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Erwin Kooi",
+                    "email": "info@cyane.nl"
+                },
+                {
+                    "name": "Luã de Souza",
+                    "email": "lsouza@codeinc.com.br"
+                }
+            ],
+            "description": "A simple parser for *.dbf files using PHP",
+            "homepage": "https://github.com/hisamu/php-xbase",
+            "keywords": [
+                "dbase",
+                "foxpro"
+            ],
+            "time": "2016-03-22 17:36:17"
         },
         {
             "name": "jakub-onderka/php-console-color",
@@ -3280,7 +3322,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "hisamu/php-xbase": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
