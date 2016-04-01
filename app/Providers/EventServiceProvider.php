@@ -2,8 +2,12 @@
 
 namespace App\Providers;
 
+use App\Listeners\FailedBackupListener;
+use App\Listeners\SuccessfulBackupListener;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Spatie\Backup\Events\BackupHasFailed;
+use Spatie\Backup\Events\BackupWasSuccessful;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -13,8 +17,11 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\SomeEvent' => [
-            'App\Listeners\EventListener',
+        BackupWasSuccessful::class => [
+            SuccessfulBackupListener::class,
+        ],
+        BackupHasFailed::class => [
+            FailedBackupListener::class
         ],
     ];
 
