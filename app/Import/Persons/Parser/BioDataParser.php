@@ -17,19 +17,15 @@ class BioDataParser implements FieldParser {
         switch ($column) {
             case 'standard':
                 $entity->bio_data = $field;
-                //$entity->setBioData($field);
                 break;
             case 'nichtstand':
                 $entity->add_bio_data = $field;
-                //$entity->setAdditionalBioData($field);
                 break;
             case 'q_standard':
                 $entity->bio_data_source = $field;
-                //$entity->setBioDataSource($field);
                 break;
             case 'herkunft':
                 $entity->source = $field;
-                //$entity->setSource($field);
                 break;
         }
 

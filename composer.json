@@ -10,7 +10,7 @@
         "barryvdh/laravel-ide-helper": "^2.0",
         "pda/pheanstalk": "^3.0",
         "league/fractal": "^0.13.0",
-        "grimmdevelop/models": "^0.3.0",
+        "grimmdevelop/models": "^0.3.1",
         "hisamu/php-xbase": "@dev"
     },
     "require-dev": {

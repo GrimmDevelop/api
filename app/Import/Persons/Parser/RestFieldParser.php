@@ -27,9 +27,6 @@ class RestFieldParser implements FieldParser {
         $letterInfo->data = $field;
         $letterInfo->code()->associate($this->codes[$column]);
         $entity->information()->save($letterInfo);
-        //$letterInfo->setCode($this->codes[$column]);
-        //$letterInfo->setData($field);
-        //$entity->addPersonInformation($letterInfo);
     }
 
     public function handledColumns()
@@ -45,9 +42,6 @@ class RestFieldParser implements FieldParser {
             $letterCode->error_generated = true;
             $letterCode->internal = true;
             $letterCode->save();
-            //$letterCode->setName($code);
-            //$letterCode->setErrorGenerated(true);
-            //$letterCode->setInternal(true);
             $this->codes[$code] = $letterCode;
         }
     }

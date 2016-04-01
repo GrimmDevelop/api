@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "32c55cc46c063b9416bf79c4511dfcba",
-    "content-hash": "853a1ac9832ed76aedc5482b2ebaaaba",
+    "hash": "1045a0301ab202d466afdf335f0a6b20",
+    "content-hash": "416739e3b978060d2a40ebf56a1dda2c",
     "packages": [
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -226,16 +226,16 @@
         },
         {
             "name": "grimmdevelop/models",
-            "version": "0.3.0",
+            "version": "0.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrimmDevelop/models.git",
-                "reference": "7f0637639bc8228f59de6b83c000ce83a9db3779"
+                "reference": "4bf16eaff63eca29a618a13672beccd704ff92f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrimmDevelop/models/zipball/7f0637639bc8228f59de6b83c000ce83a9db3779",
-                "reference": "7f0637639bc8228f59de6b83c000ce83a9db3779",
+                "url": "https://api.github.com/repos/GrimmDevelop/models/zipball/4bf16eaff63eca29a618a13672beccd704ff92f9",
+                "reference": "4bf16eaff63eca29a618a13672beccd704ff92f9",
                 "shasum": ""
             },
             "require": {
@@ -263,7 +263,7 @@
                     "email": "davbohn@gmail.com"
                 }
             ],
-            "time": "2016-03-31 15:36:21"
+            "time": "2016-04-01 17:47:11"
         },
         {
             "name": "hisamu/php-xbase",

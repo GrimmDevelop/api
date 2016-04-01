@@ -26,7 +26,6 @@ class ImportDBaseCommand extends Command
     /**
      * Create a new command instance.
      *
-     * @return void
      */
     public function __construct()
     {
@@ -36,6 +35,8 @@ class ImportDBaseCommand extends Command
     /**
      * Execute the console command.
      *
+     * @param DbfProcessor $processor
+     * @param PersonConverter $converter
      * @return mixed
      */
     public function handle(DbfProcessor $processor, PersonConverter $converter)
@@ -67,6 +68,11 @@ class ImportDBaseCommand extends Command
 
     }
 
+    /**
+     * @param $personDbase
+     * @param DbfProcessor $processor
+     * @param PersonConverter $converter
+     */
     private function importPersons($personDbase, DbfProcessor $processor, PersonConverter $converter)
     {
         $processor->open($personDbase);

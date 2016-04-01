@@ -20,9 +20,6 @@ class InheritanceParser implements FieldParser {
         $print->entry = $field;
 
         $entity->inheritances()->save($print);
-
-        //$print->setEntry($field);
-        //$entity->addInheritance($print);
     }
 
     public function handledColumns()

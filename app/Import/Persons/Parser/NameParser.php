@@ -20,14 +20,9 @@ class NameParser implements FieldParser {
             $entity->first_name = $nameParts[1];
             $entity->last_name = $nameParts[0];
             $entity->is_organization = false;
-            //$entity->setFirstName($nameParts[1]);
-            //$entity->setLastName($nameParts[0]);
-            //$entity->setIsOrganization(false);
         } else {
             $entity->last_name = $field;
             $entity->is_organization = true;
-            //$entity->setLastName($field);
-            //$entity->setIsOrganization(true);
         }
         $entity->save();
     }

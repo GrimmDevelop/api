@@ -19,10 +19,6 @@ class PersonPrintParser implements FieldParser {
 
         $print->entry = $field;
         $entity->prints()->save($print);
-        //$entity->save();
-
-        //$print->setEntry($field);
-        //$entity->addPrint($print);
 
     }
 
