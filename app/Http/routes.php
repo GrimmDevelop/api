@@ -31,9 +31,9 @@ Route::get('/', function () {
 Route::group(['prefix' => 'v1', 'middleware' => ['api']], function () {
 
     Route::post('find/book', ['as' => 'v1.find.book', 'uses' => 'ApiV1\\Open\\FindController@book']);
-    Route::post('find/person', ['as' => 'v1.find.person', 'uses' => 'ApiV1\\Open\\FindController@person']);
 
     Route::group(['middleware' => ['auth:api']], function() {
+        Route::get('find/person', ['as' => 'v1.find.person', 'uses' => 'ApiV1\\Open\\PersonsController@findByName']);
         Route::get('persons', ['as' => 'v1.persons.index', 'uses' => 'ApiV1\\Open\\PersonsController@index']);
         Route::get('persons/{id}', ['as' => 'v1.persons.show', 'uses' => 'ApiV1\\Open\\PersonsController@show']);
 

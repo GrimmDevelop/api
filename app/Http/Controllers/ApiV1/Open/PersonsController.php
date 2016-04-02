@@ -26,6 +26,15 @@ class PersonsController extends ApiController
         return $this->respondWithPagination($people, new PersonTransformer);
     }
 
+    public function findByName(Request $request)
+    {
+        $limit = $this->limit($request->get('limit'), 100, 10);
+
+        $people = Person::searchByName($request->get('name'))->paginate($limit);
+
+        return $this->respondWithPagination($people, new PersonTransformer);
+    }
+
     /**
      * Display the specified resource.
      *
