@@ -24,6 +24,8 @@ class PersonTransformer extends TransformerAbstract {
      */
     public function transform(Person $item)
     {
+        $birth_date = ($item->birth_date !== null) ? $item->birth_date->format('Y-m-d') : null;
+        $death_date = ($item->death_date !== null) ? $item->death_date->format('Y-m-d') : null;
         return [
             'links' => [
                 'self' => route('v1.persons.show', ['id' => $item->id]),
@@ -31,8 +33,8 @@ class PersonTransformer extends TransformerAbstract {
             'id' => (int) $item->id,
             'last_name' => $item->last_name,
             'first_name' => $item->first_name,
-            'birth_date' => $item->birth_date->format('Y-m-d'),
-            'death_date' => $item->death_date->format('Y-m-d'),
+            'birth_date' => $birth_date,
+            'death_date' => $death_date,
             'bio_data' => $item->bio_data,
             'bio_data_source' => $item->bio_data_source,
             'add_bio_data' => $item->add_bio_data,
