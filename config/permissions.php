@@ -10,6 +10,7 @@ return [
     'users.update',
     'users.delete',
 
+    'books.assign',
     'books.store',
     'books.update',
     'books.delete',
