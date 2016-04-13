@@ -19,6 +19,15 @@ trait DBFRecordConverter
         }
     }
 
+    public function preflight()
+    {
+        foreach ($this->parsers as $parser) {
+            if (method_exists($parser, 'before')) {
+                $parser->before();
+            }
+        }
+    }
+
     public function convert(Record $record, $columns)
     {
         $entity = $this->setupEntity();

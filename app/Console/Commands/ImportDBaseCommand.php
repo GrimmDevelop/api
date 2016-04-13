@@ -14,7 +14,7 @@ class ImportDBaseCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'grimm:import {folder} {--exclude-letters} {--exclude-persons}';
+    protected $signature = 'grimm:import {folder} {--exclude-letters} {--exclude-persons} {--force}';
 
     /**
      * The console command description.
@@ -75,11 +75,18 @@ class ImportDBaseCommand extends Command
      */
     private function importPersons($personDbase, DbfProcessor $processor, PersonConverter $converter)
     {
+        if ($this->option('force')) {
+            if ($this->confirm("Do you really want to delete all existing data in the person database?")) {
+                $this->clearPersonDatabase();
+            }
+        }
+        
         $processor->open($personDbase);
 
         $this->info('Importing person register database with ' . $processor->getRows() . ' entries');
 
         $this->output->progressStart($processor->getRows());
+        $converter->preflight();
 
         $processor->eachRow(function (Record $record, $columns) use ($converter) {
             $converter->convert($record, $columns);
@@ -88,5 +95,13 @@ class ImportDBaseCommand extends Command
 
         $this->output->progressFinish();
         $this->info('Import of person register done!');
+    }
+
+    private function clearPersonDatabase()
+    {
+        \DB::table('persons')->delete();
+        \DB::table('person_codes')->delete();
+        \DB::statement('ALTER TABLE persons AUTO_INCREMENT = 1');
+        \DB::statement('ALTER TABLE person_codes AUTO_INCREMENT = 1');
     }
 }

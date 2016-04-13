@@ -11,9 +11,11 @@ class RestFieldParser implements FieldParser {
 
     protected $codes = [];
 
-    public function __construct()
+    public function before()
     {
-        $this->populateCodes();
+        if (count($this->codes) === 0) {
+            $this->populateCodes();
+        }
     }
 
     /**
