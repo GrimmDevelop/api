@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Import\Persons\BioDataExtractor;
 use App\Import\Persons\Converter\PersonConverter;
 use App\Import\Persons\Parser\BioDataParser;
 use App\Import\Persons\Parser\InheritanceParser;
@@ -34,7 +35,7 @@ class AppServiceProvider extends ServiceProvider
 
             $converter->registerParsers([
                 new NameParser(),
-                new BioDataParser(),
+                new BioDataParser(app(BioDataExtractor::class)),
                 new PersonPrintParser(),
                 new InheritanceParser(),
                 new PersonRestFieldParser()

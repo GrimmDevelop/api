@@ -29,8 +29,8 @@ $factory->define(Grimm\Person::class, function (Faker\Generator $faker) {
     return [
         'last_name' => $faker->lastName,
         'first_name' => $faker->firstName,
-        'birth_date' => $birthDate,
-        'death_date' => $birthDate->addYears($faker->randomNumber(2)),
+        'birth_date' => $birthDate->format('Y'),
+        'death_date' => $birthDate->addYears($faker->randomNumber(2))->format('Y'),
         'is_organization' => $faker->boolean(20),
     ];
 });

@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "085953fbbfa11ddd7f47bf0ce35cba2e",
-    "content-hash": "318fca5d8ccd7c6523084493f259cf72",
+    "hash": "d4e761ae076ecff0f9b1c8a9a65ecc27",
+    "content-hash": "2608f8e7a6ca1528bdc5c552632652f8",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.17.4",
+            "version": "3.17.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "9899865dda8e388a6f9aa7425af50730eabf5ffd"
+                "reference": "d5a5145263da88c9ba870b579c3d4f648b82d2a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/9899865dda8e388a6f9aa7425af50730eabf5ffd",
-                "reference": "9899865dda8e388a6f9aa7425af50730eabf5ffd",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/d5a5145263da88c9ba870b579c3d4f648b82d2a9",
+                "reference": "d5a5145263da88c9ba870b579c3d4f648b82d2a9",
                 "shasum": ""
             },
             "require": {
@@ -85,7 +85,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2016-04-06 00:39:52"
+            "time": "2016-04-11 17:36:01"
         },
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -708,16 +708,16 @@
         },
         {
             "name": "grimmdevelop/models",
-            "version": "0.4.1",
+            "version": "0.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrimmDevelop/models.git",
-                "reference": "418ed7dda57227b346c5e319ba5127a27c76c58f"
+                "reference": "dc8e089682bb930b2de43ee481b1379033ee85bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrimmDevelop/models/zipball/418ed7dda57227b346c5e319ba5127a27c76c58f",
-                "reference": "418ed7dda57227b346c5e319ba5127a27c76c58f",
+                "url": "https://api.github.com/repos/GrimmDevelop/models/zipball/dc8e089682bb930b2de43ee481b1379033ee85bf",
+                "reference": "dc8e089682bb930b2de43ee481b1379033ee85bf",
                 "shasum": ""
             },
             "require": {
@@ -745,7 +745,7 @@
                     "email": "davbohn@gmail.com"
                 }
             ],
-            "time": "2016-04-05 12:25:27"
+            "time": "2016-04-13 12:21:43"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -1428,16 +1428,16 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "1.18.2",
+            "version": "1.19.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "064b38c16790249488e7a8b987acf1c9d7383c09"
+                "reference": "5f56ed5212dc509c8dc8caeba2715732abb32dbf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/064b38c16790249488e7a8b987acf1c9d7383c09",
-                "reference": "064b38c16790249488e7a8b987acf1c9d7383c09",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/5f56ed5212dc509c8dc8caeba2715732abb32dbf",
+                "reference": "5f56ed5212dc509c8dc8caeba2715732abb32dbf",
                 "shasum": ""
             },
             "require": {
@@ -1502,7 +1502,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2016-04-02 13:12:58"
+            "time": "2016-04-12 18:29:35"
         },
         {
             "name": "mtdowling/cron-expression",
@@ -2109,16 +2109,16 @@
         },
         {
             "name": "spatie/laravel-backup",
-            "version": "3.4.0",
+            "version": "3.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-backup.git",
-                "reference": "7e215940f2c60ec9994ef0c71d240fda6777609c"
+                "reference": "aa300d50873fcec64527773d0baba1279a68a780"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/7e215940f2c60ec9994ef0c71d240fda6777609c",
-                "reference": "7e215940f2c60ec9994ef0c71d240fda6777609c",
+                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/aa300d50873fcec64527773d0baba1279a68a780",
+                "reference": "aa300d50873fcec64527773d0baba1279a68a780",
                 "shasum": ""
             },
             "require": {
@@ -2167,7 +2167,7 @@
                 "laravel-backup",
                 "spatie"
             ],
-            "time": "2016-04-03 21:18:17"
+            "time": "2016-04-13 08:49:01"
         },
         {
             "name": "swiftmailer/swiftmailer",

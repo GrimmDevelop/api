@@ -2,10 +2,21 @@
 
 namespace App\Import\Persons\Parser;
 
-
 use App\Import\Parser\FieldParser;
+use App\Import\Persons\BioDataExtractor;
 
-class BioDataParser implements FieldParser {
+class BioDataParser implements FieldParser
+{
+
+    /**
+     * @var BioDataExtractor
+     */
+    private $bioDataExtractor;
+
+    public function __construct(BioDataExtractor $bioDataExtractor)
+    {
+        $this->bioDataExtractor = $bioDataExtractor;
+    }
 
     /**
      * @param $column
@@ -17,6 +28,9 @@ class BioDataParser implements FieldParser {
         switch ($column) {
             case 'standard':
                 $entity->bio_data = $field;
+                $this->bioDataExtractor->extract($entity->bio_data);
+                $entity->birth_date = $this->bioDataExtractor->getBirthDate();
+                $entity->death_date = $this->bioDataExtractor->getDeathDate();
                 break;
             case 'nichtstand':
                 $entity->add_bio_data = $field;
