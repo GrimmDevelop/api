@@ -708,16 +708,16 @@
         },
         {
             "name": "grimmdevelop/models",
-            "version": "0.5.0",
+            "version": "0.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrimmDevelop/models.git",
-                "reference": "dc8e089682bb930b2de43ee481b1379033ee85bf"
+                "reference": "bc40040f6bcd18c4de599a556c64c526c09c5032"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrimmDevelop/models/zipball/dc8e089682bb930b2de43ee481b1379033ee85bf",
-                "reference": "dc8e089682bb930b2de43ee481b1379033ee85bf",
+                "url": "https://api.github.com/repos/GrimmDevelop/models/zipball/bc40040f6bcd18c4de599a556c64c526c09c5032",
+                "reference": "bc40040f6bcd18c4de599a556c64c526c09c5032",
                 "shasum": ""
             },
             "require": {
@@ -745,7 +745,7 @@
                     "email": "davbohn@gmail.com"
                 }
             ],
-            "time": "2016-04-13 12:21:43"
+            "time": "2016-04-19 14:24:04"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -862,16 +862,16 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "1.2.3",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "2e89629ff057ebb49492ba08e6995d3a6a80021b"
+                "reference": "31382fef2889136415751badebbd1cb022a4ed72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/2e89629ff057ebb49492ba08e6995d3a6a80021b",
-                "reference": "2e89629ff057ebb49492ba08e6995d3a6a80021b",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/31382fef2889136415751badebbd1cb022a4ed72",
+                "reference": "31382fef2889136415751badebbd1cb022a4ed72",
                 "shasum": ""
             },
             "require": {
@@ -916,7 +916,7 @@
                 "stream",
                 "uri"
             ],
-            "time": "2016-02-18 21:54:00"
+            "time": "2016-04-13 19:56:01"
         },
         {
             "name": "hisamu/php-xbase",
@@ -924,12 +924,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/hisamu/php-xbase.git",
-                "reference": "e989cc98a9f91047bb5a09d0980a4a3f845280af"
+                "reference": "5be81896c50cac893ea3db347a426137c4d9e9eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hisamu/php-xbase/zipball/e989cc98a9f91047bb5a09d0980a4a3f845280af",
-                "reference": "e989cc98a9f91047bb5a09d0980a4a3f845280af",
+                "url": "https://api.github.com/repos/hisamu/php-xbase/zipball/5be81896c50cac893ea3db347a426137c4d9e9eb",
+                "reference": "5be81896c50cac893ea3db347a426137c4d9e9eb",
                 "shasum": ""
             },
             "require": {
@@ -958,7 +958,7 @@
                 "dbase",
                 "foxpro"
             ],
-            "time": "2016-03-22 17:36:17"
+            "time": "2016-04-19 12:51:23"
         },
         {
             "name": "jakub-onderka/php-console-color",
@@ -1652,16 +1652,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v2.0.1",
+            "version": "v2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "ce5be709d59b32dd8a88c80259028759991a4206"
+                "reference": "47b254ea51f1d6d5dc04b9b299e88346bf2369e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/ce5be709d59b32dd8a88c80259028759991a4206",
-                "reference": "ce5be709d59b32dd8a88c80259028759991a4206",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/47b254ea51f1d6d5dc04b9b299e88346bf2369e3",
+                "reference": "47b254ea51f1d6d5dc04b9b299e88346bf2369e3",
                 "shasum": ""
             },
             "require": {
@@ -1677,7 +1677,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.0-dev"
+                    "dev-master": "2.1-dev"
                 }
             },
             "autoload": {
@@ -1699,7 +1699,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2016-02-28 19:48:28"
+            "time": "2016-04-19 13:41:41"
         },
         {
             "name": "paragonie/random_compat",
@@ -2109,16 +2109,16 @@
         },
         {
             "name": "spatie/laravel-backup",
-            "version": "3.4.2",
+            "version": "3.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-backup.git",
-                "reference": "aa300d50873fcec64527773d0baba1279a68a780"
+                "reference": "a083a0be211767c6dbae38f272b05d8ced7513d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/aa300d50873fcec64527773d0baba1279a68a780",
-                "reference": "aa300d50873fcec64527773d0baba1279a68a780",
+                "url": "https://api.github.com/repos/spatie/laravel-backup/zipball/a083a0be211767c6dbae38f272b05d8ced7513d3",
+                "reference": "a083a0be211767c6dbae38f272b05d8ced7513d3",
                 "shasum": ""
             },
             "require": {
@@ -2167,7 +2167,7 @@
                 "laravel-backup",
                 "spatie"
             ],
-            "time": "2016-04-13 08:49:01"
+            "time": "2016-04-18 07:05:28"
         },
         {
             "name": "swiftmailer/swiftmailer",

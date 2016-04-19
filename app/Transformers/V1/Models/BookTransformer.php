@@ -5,7 +5,8 @@ namespace App\Transformers\V1\Models;
 use Grimm\Book;
 use League\Fractal\TransformerAbstract;
 
-class BookTransformer extends TransformerAbstract {
+class BookTransformer extends TransformerAbstract
+{
 
     /**
      * List of resources possible to include
@@ -20,6 +21,7 @@ class BookTransformer extends TransformerAbstract {
      * Transforms a single item into a new one
      *
      * @param \Grimm\Book $item
+     *
      * @return mixed
      */
     public function transform($item)
@@ -31,10 +33,12 @@ class BookTransformer extends TransformerAbstract {
             'id' => (int)$item->id,
             'title' => $item->title,
             'short_title' => $item->short_title,
-            'volume' => (int)$item->volume,
-            'volume_irregular' => (int)$item->volume_irregular,
+            'volume' => $item->volume,
+            'volume_irregular' => $item->volume_irregular,
             'edition' => $item->edition,
-            'year' => (int)$item->year,
+            // 'year' => (int)$item->year,
+            'grimmwerk' => $item->grimm,
+            'notes' => $item->notes,
         ];
     }
 
@@ -42,6 +46,7 @@ class BookTransformer extends TransformerAbstract {
      * Include person association
      *
      * @param \Grimm\Book $book
+     *
      * @return \League\Fractal\Resource\Collection
      */
     public function includePersonAssociations(Book $book)
