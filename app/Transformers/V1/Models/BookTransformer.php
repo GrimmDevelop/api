@@ -20,32 +20,35 @@ class BookTransformer extends TransformerAbstract
     /**
      * Transforms a single item into a new one
      *
-     * @param \Grimm\Book $item
+     * @param $item
      *
      * @return mixed
      */
     public function transform($item)
     {
+        if (array_key_exists('_source', $item)) {
+            $item = $item['_source'];
+        }
         return [
             'links' => [
-                'self' => route('v1.books.show', ['id' => $item->id]),
+                'self' => route('v1.books.show', ['id' => $item['id']]),
             ],
-            'id' => (int)$item->id,
-            'title' => $item->title,
-            'short_title' => $item->short_title,
-            'volume' => $item->volume,
-            'volume_irregular' => $item->volume_irregular,
-            'edition' => $item->edition,
+            'id' => (int)$item['id'],
+            'title' => $item['title'],
+            'short_title' => $item['short_title'],
+            'volume' => $item['volume'],
+            'volume_irregular' => $item['volume_irregular'],
+            'edition' => $item['edition'],
             // 'year' => (int)$item->year,
-            'grimmwerk' => $item->grimm,
-            'notes' => $item->notes,
+            'grimmwerk' => $item['grimmwerk'],
+            'notes' => $item['notes'],
         ];
     }
 
     /**
      * Include person association
      *
-     * @param \Grimm\Book $book
+     * @param $book
      *
      * @return \League\Fractal\Resource\Collection
      */
