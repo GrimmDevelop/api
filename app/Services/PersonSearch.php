@@ -46,10 +46,9 @@ class PersonSearch
 
     public function byName($name, $limit)
     {
-        // TODO: Still not the best solution. We have to adjust the mapping to exclude some fields from 'all' or create our own mapping field like the 'all' one
         return $this->elasticsearch->query([
             'match' => [
-                '_all' => [
+                'name' => [
                     'query' => $name,
                     'operator' => 'and',
                 ],
