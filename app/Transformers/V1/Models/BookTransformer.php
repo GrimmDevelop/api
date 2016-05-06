@@ -52,8 +52,8 @@ class BookTransformer extends TransformerAbstract
      *
      * @return \League\Fractal\Resource\Collection
      */
-    public function includePersonAssociations(Book $book)
+    public function includePersonAssociations($book)
     {
-        return $this->collection($book->personAssociations, new BookPersonAssociationTransformer);
+        return $this->collection($book['personAssociations'], new BookPersonAssociationTransformer);
     }
 }

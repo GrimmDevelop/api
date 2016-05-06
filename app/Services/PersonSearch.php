@@ -2,11 +2,10 @@
 
 namespace App\Services;
 
-use Cviebrock\LaravelElasticsearch\Manager;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-class BookSearch
+class PersonSearch
 {
 
     /**
@@ -31,7 +30,7 @@ class BookSearch
      */
     public function find(int $id)
     {
-        return $this->elasticsearch->find($id, 'book');
+        return $this->elasticsearch->find($id, 'person');
     }
 
     public function paginate($limit, Request $request)
@@ -42,7 +41,7 @@ class BookSearch
 
         $count = $this->count();
 
-        return new LengthAwarePaginator($books, $count, $limit, $page, ['path' => route('v1.books.index')]);
+        return new LengthAwarePaginator($books, $count, $limit, $page, ['path' => route('v1.persons.index')]);
     }
 
     /**
@@ -50,7 +49,24 @@ class BookSearch
      */
     public function count()
     {
-        return $this->elasticsearch->count('book');
+        return $this->elasticsearch->count('person');
+    }
+
+    public function byName($name/*, $limit, $page, $path*/)
+    {
+        // TODO: currently broken and only searching last name!
+        return $this->elasticsearch->search([
+            'query' => [
+                'bool' => [
+
+                    'should' => [
+                        'match' => ['last_name' => $name],
+                        //'match' => ['first_name' => $name],
+                        //'first_name' => $name
+                    ],
+                ],
+            ],
+        ], 'person');
     }
 
     /**
@@ -66,6 +82,6 @@ class BookSearch
             'sort' => [
                 ['id' => ['order' => 'asc']],
             ],
-        ], 'book', 'grimm', $limit, $page)['hits']['hits'];
+        ], 'person', 'grimm', $limit, $page)['hits']['hits'];
     }
 }

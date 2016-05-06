@@ -4,6 +4,9 @@ namespace App\Http\Controllers\ApiV1\Open;
 
 use App\Http\Controllers\ApiV1\ApiController;
 use App\Http\Requests;
+use App\Services\Elasticsearch;
+use App\Services\PersonSearch;
+use Elasticsearch\Common\Exceptions\Missing404Exception;
 use Grimm\Person;
 use App\Transformers\V1\Models\PersonTransformer;
 use Illuminate\Http\Request;
@@ -14,21 +17,25 @@ class PersonsController extends ApiController
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
+     * @param Request      $request
+     * @param PersonSearch $search
+     *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, PersonSearch $search)
     {
         $limit = $this->limit($request->get('limit'), 100, 10);
+        
+        $paginator = $search->paginate($limit, $request);
 
-        $people = Person::query()->paginate($limit);
-
-        return $this->respondWithPagination($people, new PersonTransformer);
+        return $this->respondWithPagination($paginator, new PersonTransformer);
     }
 
-    public function findByName(Request $request)
+    public function findByName(Request $request, PersonSearch $search)
     {
         $limit = $this->limit($request->get('limit'), 100, 10);
+
+        dd($search->byName($request->get('name')));
 
         $people = Person::searchByName($request->get('name'))->paginate($limit);
 
@@ -38,27 +45,16 @@ class PersonsController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param  int         $id
+     * @param PersonSearch $search
+     *
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, PersonSearch $search)
     {
-        /** @var Person $person */
-        $person = Person::query()->with([
-            'information' => function($query) {
-                $query->whereHas('code', function($q) {
-                    $q->where('internal', false);
-                });
-            },
-            'information.code' => function ($query) {
-                $query->where('person_codes.internal', false);
-            },
-            'prints',
-            'inheritances',
-            'bookAssociations'
-        ])->find($id);
-
-        if (!$person) {
+        try {
+            $person = $search->find($id, 'person');
+        } catch (Missing404Exception $e) {
             return $this->responseNotFound();
         }
 

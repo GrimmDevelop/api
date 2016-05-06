@@ -24,15 +24,15 @@ class BookPersonAssociationTransformer extends TransformerAbstract
      * @param BookPersonAssociation $item
      * @return mixed
      */
-    public function transform(BookPersonAssociation $item)
+    public function transform($item)
     {
         return [
-            'book_id' => (int)$item->book_id,
-            'person_id' => (int)$item->person_id,
-            'page' => (int)$item->page,
-            'page_to' => (int)$item->page_to,
-            'page_description' => $item->page_description,
-            'line' => (int)$item->line,
+            'book_id' => (int)$item['book_id'],
+            'person_id' => (int)$item['person_id'],
+            'page' => (int)$item['page'],
+            'page_to' => (int)$item['page_to'],
+            'page_description' => $item['page_description'],
+            'line' => (int)$item['line'],
         ];
     }
 
@@ -42,9 +42,9 @@ class BookPersonAssociationTransformer extends TransformerAbstract
      * @param BookPersonAssociation $association
      * @return \League\Fractal\Resource\Item
      */
-    public function includeBook(BookPersonAssociation $association)
+    public function includeBook($association)
     {
-        return $this->item($association->book, new BookTransformer);
+        return $this->item($association['book'], new BookTransformer);
     }
 
     /**
@@ -53,8 +53,8 @@ class BookPersonAssociationTransformer extends TransformerAbstract
      * @param BookPersonAssociation $association
      * @return \League\Fractal\Resource\Item
      */
-    public function includePerson(BookPersonAssociation $association)
+    public function includePerson($association)
     {
-        return $this->item($association->person, new PersonTransformer);
+        return $this->item($association['person'], new PersonTransformer);
     }
 }
