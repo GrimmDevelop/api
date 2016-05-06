@@ -28,7 +28,7 @@ class PersonSearch
      */
     public function find(int $id)
     {
-        return $this->elasticsearch->find($id, 'person');
+        return $this->elasticsearch->find($id);
     }
 
     public function paginate($limit)
@@ -41,7 +41,7 @@ class PersonSearch
      */
     public function count()
     {
-        return $this->elasticsearch->count('person');
+        return $this->elasticsearch->count();
     }
 
     public function byName($name, $limit)
