@@ -2,9 +2,8 @@
 
 namespace App\Services;
 
-use Cviebrock\LaravelElasticsearch\Manager;
-use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 
 class BookSearch
 {
@@ -34,15 +33,13 @@ class BookSearch
         return $this->elasticsearch->find($id, 'book');
     }
 
-    public function paginate($limit, Request $request)
+    public function paginate($limit)
     {
-        $page = $request->get('page', '1');
+        $page = Paginator::resolveCurrentPage('page');
 
-        $books = $this->getPage($limit, $page);
+        list($books, $count) = $this->getPage($limit, $page);
 
-        $count = $this->count();
-
-        return new LengthAwarePaginator($books, $count, $limit, $page, ['path' => route('v1.books.index')]);
+        return new LengthAwarePaginator($books, $count, $limit, $page, ['path' => Paginator::resolveCurrentPath()]);
     }
 
     /**
@@ -62,10 +59,12 @@ class BookSearch
      */
     protected function getPage($limit, $page)
     {
-        return $this->elasticsearch->search([
+        $result = $this->elasticsearch->search([
             'sort' => [
                 ['id' => ['order' => 'asc']],
             ],
-        ], 'book', 'grimm', $limit, $page)['hits']['hits'];
+        ], 'book', 'grimm', $limit, $page);
+
+        return [$result['hits']['hits'], $result['hits']['total']];
     }
 }

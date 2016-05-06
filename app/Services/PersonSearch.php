@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 
 class PersonSearch
 {
@@ -33,15 +33,13 @@ class PersonSearch
         return $this->elasticsearch->find($id, 'person');
     }
 
-    public function paginate($limit, Request $request)
+    public function paginate($limit)
     {
-        $page = $request->get('page', '1');
+        $page = Paginator::resolveCurrentPage('page');
 
-        $books = $this->getPage($limit, $page);
+        list($books, $count) = $this->getPage($limit, $page);
 
-        $count = $this->count();
-
-        return new LengthAwarePaginator($books, $count, $limit, $page, ['path' => route('v1.persons.index')]);
+        return new LengthAwarePaginator($books, $count, $limit, $page, ['path' => Paginator::resolveCurrentPath()]);
     }
 
     /**
@@ -78,10 +76,12 @@ class PersonSearch
      */
     protected function getPage($limit, $page)
     {
-        return $this->elasticsearch->search([
+        $result = $this->elasticsearch->search([
             'sort' => [
                 ['id' => ['order' => 'asc']],
             ],
-        ], 'person', 'grimm', $limit, $page)['hits']['hits'];
+        ], 'person', 'grimm', $limit, $page);
+
+        return [$result['hits']['hits'], $result['hits']['total']];
     }
 }
