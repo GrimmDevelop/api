@@ -10,9 +10,28 @@ use Elasticsearch\Common\Exceptions\Missing404Exception;
 use Grimm\Person;
 use App\Transformers\V1\Models\PersonTransformer;
 use Illuminate\Http\Request;
+use League\Fractal\Manager;
 
 class PersonsController extends ApiController
 {
+
+    /**
+     * @var PersonSearch
+     */
+    protected $search;
+
+    /**
+     * PersonsController constructor.
+     *
+     * @param Manager      $manager
+     * @param PersonSearch $search
+     */
+    public function __construct(Manager $manager, PersonSearch $search)
+    {
+        parent::__construct($manager);
+
+        $this->search = $search;
+    }
 
     /**
      * Display a listing of the resource.
@@ -22,22 +41,20 @@ class PersonsController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, PersonSearch $search)
+    public function index(Request $request)
     {
         $limit = $this->limit($request->get('limit'), 100, 10);
-        
-        $paginator = $search->paginate($limit, $request);
+
+        $paginator = $this->search->paginate($limit, $request);
 
         return $this->respondWithPagination($paginator, new PersonTransformer);
     }
 
-    public function findByName(Request $request, PersonSearch $search)
+    public function findByName(Request $request)
     {
         $limit = $this->limit($request->get('limit'), 100, 10);
 
-        dd($search->byName($request->get('name')));
-
-        $people = Person::searchByName($request->get('name'))->paginate($limit);
+        $people = $this->search->byName($request->get('name'), $limit);
 
         return $this->respondWithPagination($people, new PersonTransformer);
     }
@@ -45,15 +62,15 @@ class PersonsController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  int         $id
-     * @param PersonSearch $search
+     * @param  int $id
      *
      * @return \Illuminate\Http\Response
+     *
      */
-    public function show($id, PersonSearch $search)
+    public function show($id)
     {
         try {
-            $person = $search->find($id, 'person');
+            $person = $this->search->find($id);
         } catch (Missing404Exception $e) {
             return $this->responseNotFound();
         }

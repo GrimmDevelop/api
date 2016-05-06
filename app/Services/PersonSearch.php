@@ -2,9 +2,6 @@
 
 namespace App\Services;
 
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Pagination\Paginator;
-
 class PersonSearch
 {
 
@@ -21,6 +18,7 @@ class PersonSearch
     public function __construct(Elasticsearch $elasticsearch)
     {
         $this->elasticsearch = $elasticsearch;
+        $this->elasticsearch->setType('person');
     }
 
     /**
@@ -35,11 +33,7 @@ class PersonSearch
 
     public function paginate($limit)
     {
-        $page = Paginator::resolveCurrentPage('page');
-
-        list($books, $count) = $this->getPage($limit, $page);
-
-        return new LengthAwarePaginator($books, $count, $limit, $page, ['path' => Paginator::resolveCurrentPath()]);
+        return $this->elasticsearch->orderBy('id', 'asc')->paginate($limit);
     }
 
     /**
@@ -50,38 +44,18 @@ class PersonSearch
         return $this->elasticsearch->count('person');
     }
 
-    public function byName($name/*, $limit, $page, $path*/)
+    public function byName($name, $limit)
     {
-        // TODO: currently broken and only searching last name!
-        return $this->elasticsearch->search('person', [
-            'query' => [
-                'bool' => [
-
-                    'should' => [
-                        'match' => ['last_name' => $name],
-                        //'match' => ['first_name' => $name],
-                        //'first_name' => $name
-                    ],
+        // TODO: Still not the best solution. We have to adjust the mapping to exclude some fields from 'all' or create our own mapping field like the 'all' one
+        return $this->elasticsearch->query([
+            'match' => [
+                '_all' => [
+                    'query' => $name,
+                    'operator' => 'and',
                 ],
             ],
-        ]);
-    }
+        ])->paginate($limit);
 
-    /**
-     * @param $limit
-     * @param $page
-     *
-     * @return mixed
-     *
-     */
-    protected function getPage($limit, $page)
-    {
-        $result = $this->elasticsearch->search('person', [
-            'sort' => [
-                ['id' => ['order' => 'asc']],
-            ],
-        ], $limit, $page);
-
-        return [$result['hits']['hits'], $result['hits']['total']];
+        return $result;
     }
 }
