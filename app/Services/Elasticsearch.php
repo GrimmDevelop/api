@@ -39,7 +39,7 @@ class Elasticsearch
         return $this->elasticsearch->count($params)['count'];
     }
 
-    public function search($criteria, $type, $index='grimm', $limit=10, $page=1)
+    public function search($type, $criteria, $limit=10, $page=1, $index='grimm')
     {
         $from = ($page - 1) * $limit;
 

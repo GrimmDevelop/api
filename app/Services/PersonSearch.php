@@ -53,7 +53,7 @@ class PersonSearch
     public function byName($name/*, $limit, $page, $path*/)
     {
         // TODO: currently broken and only searching last name!
-        return $this->elasticsearch->search([
+        return $this->elasticsearch->search('person', [
             'query' => [
                 'bool' => [
 
@@ -64,7 +64,7 @@ class PersonSearch
                     ],
                 ],
             ],
-        ], 'person');
+        ]);
     }
 
     /**
@@ -76,11 +76,11 @@ class PersonSearch
      */
     protected function getPage($limit, $page)
     {
-        $result = $this->elasticsearch->search([
+        $result = $this->elasticsearch->search('person', [
             'sort' => [
                 ['id' => ['order' => 'asc']],
             ],
-        ], 'person', 'grimm', $limit, $page);
+        ], $limit, $page);
 
         return [$result['hits']['hits'], $result['hits']['total']];
     }

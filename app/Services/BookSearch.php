@@ -59,11 +59,11 @@ class BookSearch
      */
     protected function getPage($limit, $page)
     {
-        $result = $this->elasticsearch->search([
+        $result = $this->elasticsearch->search('book', [
             'sort' => [
                 ['id' => ['order' => 'asc']],
             ],
-        ], 'book', 'grimm', $limit, $page);
+        ], $limit, $page);
 
         return [$result['hits']['hits'], $result['hits']['total']];
     }
