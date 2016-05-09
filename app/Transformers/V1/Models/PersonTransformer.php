@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Transformers\V1\Models;
- 
+
 use League\Fractal\TransformerAbstract;
 
 class PersonTransformer extends TransformerAbstract
@@ -53,18 +53,17 @@ class PersonTransformer extends TransformerAbstract
     /**
      * Include person association
      *
-     * @param $person
+     * @param $item
      *
      * @return \League\Fractal\Resource\Collection
+     *
      */
     public function includeInformation($item)
     {
         if (array_key_exists('_source', $item)) {
             $item = $item['_source'];
         }
-        /*if (!array_key_exists('information')) {
-            return;
-        }*/
+
         return $this->collection($item['information'], new PersonInformationTransformer);
     }
 
@@ -80,6 +79,7 @@ class PersonTransformer extends TransformerAbstract
         if (array_key_exists('_source', $item)) {
             $item = $item['_source'];
         }
+
         return $this->collection($item['prints'], new PersonPrintTransformer);
     }
 
@@ -95,6 +95,7 @@ class PersonTransformer extends TransformerAbstract
         if (array_key_exists('_source', $item)) {
             $item = $item['_source'];
         }
+
         return $this->collection($item['inheritances'], new PersonInheritanceTransformer);
     }
 
@@ -110,6 +111,7 @@ class PersonTransformer extends TransformerAbstract
         if (array_key_exists('_source', $item)) {
             $item = $item['_source'];
         }
+
         return $this->collection($item['bookAssociations'], new BookPersonAssociationTransformer);
     }
 }

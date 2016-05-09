@@ -8,9 +8,14 @@ class PersonPrintTransformer extends TransformerAbstract {
 
     public function transform($item)
     {
-        return [
+        $data = [
             'entry' => $item['entry'],
-            'year'  => ($item['year'] === null) ? null : floor($item['year']),
         ];
+
+        if ($item['year'] !== null) {
+            $data['year'] = floor($item['year']);
+        }
+
+        return $data;
     }
 }

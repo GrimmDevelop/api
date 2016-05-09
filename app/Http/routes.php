@@ -11,8 +11,21 @@
 |
 */
 
-Route::get('/', function () {
+$this->get('/', function () {
+    return redirect('/docs');
+});
+
+$this->get('/docs', function() {
     return view('documentation');
+});
+
+$this->get('docs/{page}', function($page) {
+    $page = 'docs.' . $page;
+    if (view()->exists($page)) {
+        return view($page);
+    }
+
+    return abort(404);
 });
 
 /*
@@ -28,18 +41,16 @@ Route::get('/', function () {
 
 // Api
 
-Route::group(['prefix' => 'v1', 'middleware' => ['api']], function () {
+$this->group(['prefix' => 'v1', 'middleware' => ['api']], function () {
 
-    Route::post('find/book', ['as' => 'v1.find.book', 'uses' => 'ApiV1\\Open\\FindController@book']);
+    $this->post('find/book', ['as' => 'v1.find.book', 'uses' => 'ApiV1\\Open\\FindController@book']);
 
-    Route::group(['middleware' => ['auth:api']], function() {
-        Route::get('find/person', ['as' => 'v1.find.person', 'uses' => 'ApiV1\\Open\\PersonsController@findByName']);
-        Route::get('persons', ['as' => 'v1.persons.index', 'uses' => 'ApiV1\\Open\\PersonsController@index']);
-        Route::get('persons/{id}', ['as' => 'v1.persons.show', 'uses' => 'ApiV1\\Open\\PersonsController@show']);
+    $this->group(['middleware' => ['auth:api']], function() {
+        $this->get('find/person', ['as' => 'v1.find.person', 'uses' => 'ApiV1\\Open\\PersonsController@findByName']);
+        $this->get('persons', ['as' => 'v1.persons.index', 'uses' => 'ApiV1\\Open\\PersonsController@index']);
+        $this->get('persons/{id}', ['as' => 'v1.persons.show', 'uses' => 'ApiV1\\Open\\PersonsController@show']);
 
-        Route::get('books', ['as' => 'v1.books.index', 'uses' => 'ApiV1\\Open\\BooksController@index']);
-        Route::get('books/{id}', ['as' => 'v1.books.show', 'uses' => 'ApiV1\\Open\\BooksController@show']);
-
-        // protected: Route::post('books/{id}/persons', 'ApiV1\\Open\\BooksController@addPersonToBook');
+        $this->get('books', ['as' => 'v1.books.index', 'uses' => 'ApiV1\\Open\\BooksController@index']);
+        $this->get('books/{id}', ['as' => 'v1.books.show', 'uses' => 'ApiV1\\Open\\BooksController@show']);
     });
 });

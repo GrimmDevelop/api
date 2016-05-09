@@ -4,10 +4,8 @@ namespace App\Http\Controllers\ApiV1\Open;
 
 use App\Http\Controllers\ApiV1\ApiController;
 use App\Http\Requests;
-use App\Services\Elasticsearch;
 use App\Services\PersonSearch;
 use Elasticsearch\Common\Exceptions\Missing404Exception;
-use Grimm\Person;
 use App\Transformers\V1\Models\PersonTransformer;
 use Illuminate\Http\Request;
 use League\Fractal\Manager;
@@ -36,20 +34,28 @@ class PersonsController extends ApiController
     /**
      * Display a listing of the resource.
      *
-     * @param Request      $request
-     * @param PersonSearch $search
+     * @param Request $request
      *
      * @return \Illuminate\Http\Response
+     *
      */
     public function index(Request $request)
     {
         $limit = $this->limit($request->get('limit'), 100, 10);
 
-        $paginator = $this->search->paginate($limit, $request);
+        $paginator = $this->search->paginate($limit);
 
         return $this->respondWithPagination($paginator, new PersonTransformer);
     }
 
+    /**
+     * Find a person by the name.
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     *
+     */
     public function findByName(Request $request)
     {
         $limit = $this->limit($request->get('limit'), 100, 10);

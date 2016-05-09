@@ -11,7 +11,7 @@ class PersonSearch
     protected $elasticsearch;
 
     /**
-     * BookSearch constructor.
+     * PersonSearch constructor.
      *
      * @param Elasticsearch $elasticsearch
      */
@@ -22,6 +22,8 @@ class PersonSearch
     }
 
     /**
+     * Fetch an person document by its id.
+     *
      * @param int $id
      *
      * @return mixed
@@ -31,12 +33,21 @@ class PersonSearch
         return $this->elasticsearch->find($id);
     }
 
+    /**
+     * Fetch a page from the document index.
+     *
+     * @param $limit
+     *
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
     public function paginate($limit)
     {
         return $this->elasticsearch->orderBy('id', 'asc')->paginate($limit);
     }
 
     /**
+     * Count all persons
+     *
      * @return int
      */
     public function count()
@@ -44,6 +55,14 @@ class PersonSearch
         return $this->elasticsearch->count();
     }
 
+    /**
+     * Search a person by name.
+     *
+     * @param $name
+     * @param $limit
+     *
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
     public function byName($name, $limit)
     {
         return $this->elasticsearch->query([
@@ -54,7 +73,5 @@ class PersonSearch
                 ],
             ],
         ])->paginate($limit);
-
-        return $result;
     }
 }

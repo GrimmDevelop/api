@@ -5,6 +5,7 @@ namespace App\Services;
 use Cviebrock\LaravelElasticsearch\Manager;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
 
 class Elasticsearch
 {
@@ -119,6 +120,8 @@ class Elasticsearch
         $result = $this->elasticsearch->search($params);
 
         $this->body = [];
+
+        $result['hits']['hits'] = new Collection($result['hits']['hits']);
 
         return $result;
     }

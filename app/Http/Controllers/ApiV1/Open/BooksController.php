@@ -27,7 +27,7 @@ class BooksController extends ApiController
     /**
      * Display a listing of the resource.
      *
-     * @param Request    $request
+     * @param Request $request
      *
      * @return \Illuminate\Http\Response
      *
@@ -36,7 +36,7 @@ class BooksController extends ApiController
     {
         $limit = $this->limit($request->get('limit'), 100, 10);
 
-        $paginator = $this->search->paginate($limit, $request);
+        $paginator = $this->search->paginate($limit);
 
         return $this->respondWithPagination($paginator, new BookTransformer);
     }
@@ -44,7 +44,7 @@ class BooksController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  int       $id
+     * @param  int $id
      *
      * @return \Illuminate\Http\Response
      *
