@@ -17,12 +17,12 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        BackupWasSuccessful::class => [
+        /*BackupWasSuccessful::class => [
             SuccessfulBackupListener::class,
         ],
         BackupHasFailed::class => [
             FailedBackupListener::class
-        ],
+        ],*/
     ];
 
     /**

@@ -4,33 +4,63 @@ namespace App\Http\Controllers\ApiV1\Open;
 
 use App\Http\Controllers\ApiV1\ApiController;
 use App\Http\Requests;
-use Grimm\Person;
+use App\Services\PersonSearch;
+use Elasticsearch\Common\Exceptions\Missing404Exception;
 use App\Transformers\V1\Models\PersonTransformer;
 use Illuminate\Http\Request;
+use League\Fractal\Manager;
 
 class PersonsController extends ApiController
 {
 
     /**
+     * @var PersonSearch
+     */
+    protected $search;
+
+    /**
+     * PersonsController constructor.
+     *
+     * @param Manager      $manager
+     * @param PersonSearch $search
+     */
+    public function __construct(Manager $manager, PersonSearch $search)
+    {
+        parent::__construct($manager);
+
+        $this->search = $search;
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param Request $request
+     *
      * @return \Illuminate\Http\Response
+     *
      */
     public function index(Request $request)
     {
         $limit = $this->limit($request->get('limit'), 100, 10);
 
-        $people = Person::query()->paginate($limit);
+        $paginator = $this->search->paginate($limit);
 
-        return $this->respondWithPagination($people, new PersonTransformer);
+        return $this->respondWithPagination($paginator, new PersonTransformer);
     }
 
+    /**
+     * Find a person by the name.
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     *
+     */
     public function findByName(Request $request)
     {
         $limit = $this->limit($request->get('limit'), 100, 10);
 
-        $people = Person::searchByName($request->get('name'))->paginate($limit);
+        $people = $this->search->byName($request->get('name'), $limit);
 
         return $this->respondWithPagination($people, new PersonTransformer);
     }
@@ -39,26 +69,15 @@ class PersonsController extends ApiController
      * Display the specified resource.
      *
      * @param  int $id
+     *
      * @return \Illuminate\Http\Response
+     *
      */
     public function show($id)
     {
-        /** @var Person $person */
-        $person = Person::query()->with([
-            'information' => function($query) {
-                $query->whereHas('code', function($q) {
-                    $q->where('internal', false);
-                });
-            },
-            'information.code' => function ($query) {
-                $query->where('person_codes.internal', false);
-            },
-            'prints',
-            'inheritances',
-            'bookAssociations'
-        ])->find($id);
-
-        if (!$person) {
+        try {
+            $person = $this->search->find($id);
+        } catch (Missing404Exception $e) {
             return $this->responseNotFound();
         }
 

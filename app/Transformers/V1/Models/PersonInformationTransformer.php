@@ -2,18 +2,17 @@
 
 namespace App\Transformers\V1\Models;
 
-use Grimm\PersonInformation;
 use League\Fractal\TransformerAbstract;
 
 class PersonInformationTransformer extends TransformerAbstract
 {
 
-    public function transform(PersonInformation $item)
+    public function transform($item)
     {
         return [
-            'data' => $item->data,
-            'code' => $item->code->name,
-            'error_generated' => $item->code->error_generated,
+            'data' => $item['data'],
+            'code' => $item['code']['name'],
+            'error_generated' => $item['code']['error_generated'],
         ];
     }
 }

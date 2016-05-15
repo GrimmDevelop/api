@@ -2,16 +2,20 @@
 
 namespace App\Transformers\V1\Models;
 
-use Grimm\PersonPrint;
 use League\Fractal\TransformerAbstract;
 
 class PersonPrintTransformer extends TransformerAbstract {
 
-    public function transform(PersonPrint $item)
+    public function transform($item)
     {
-        return [
-            'entry' => $item->entry,
-            'year'  => ($item->year === null) ? null : floor($item->year),
+        $data = [
+            'entry' => $item['entry'],
         ];
+
+        if ($item['year'] !== null) {
+            $data['year'] = floor($item['year']);
+        }
+
+        return $data;
     }
 }

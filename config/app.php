@@ -150,7 +150,7 @@ return [
 
 
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
-        Spatie\Backup\BackupServiceProvider::class,
+        Cviebrock\LaravelElasticsearch\ServiceProvider::class,
 
         /*
          * Application Service Providers...
